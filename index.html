@@ -1,0 +1,32 @@
+
+<body>
+    <h1>NASA Image of the Day</h1>
+  
+    <button id="getAPOD">Get NASA Image of the Day</button>
+  
+    <div id="imageContainer"></div>
+        <script>
+      document.getElementById('getAPOD').addEventListener('click', async () => {
+        try {
+          const response = await fetch('/getAPOD');
+          const data = await response.json();
+  
+           if (data && data.url) {
+            const imageContainer = document.getElementById('imageContainer');
+  
+            const imgElement = document.createElement('img');
+            imgElement.src = data.url;
+            imgElement.alt = 'NASA Image of the Day';
+  
+            imageContainer.innerHTML = '';
+            imageContainer.appendChild(imgElement);
+          } else {
+            console.error('No image URL found in the data');
+          }
+        } catch (error) {
+          console.error('Error fetching image:', error);
+        }
+      });
+    </script>
+  </body>
+  
